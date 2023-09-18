@@ -1,4 +1,4 @@
-package com.algaworks.algaworksspringrestcourse;
+package com.algaworks.springrestcourse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

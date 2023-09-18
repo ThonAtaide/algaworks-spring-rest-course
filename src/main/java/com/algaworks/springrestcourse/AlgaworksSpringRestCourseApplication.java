@@ -1,4 +1,4 @@
-package com.algaworks.algaworksspringrestcourse;
+package com.algaworks.springrestcourse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
