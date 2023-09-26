@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  algaworks-mysql-db:
+    container_name: 'algaworks-course-db'
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+#      - MYSQL_DATABASE=algafood
