@@ -6,11 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -25,6 +21,10 @@ public class Restaurante {
 	
 	private String nome;
 	
-	@Column(name = "taxa_frete")
+	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
+
+	@ManyToOne
+	@JoinColumn(name = "cozinha_id", nullable = false)
+	private Cozinha cozinha;
 }
