@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
+@Table(name = "forma_pagamento")
 public class FormaDePagamento {
 
     @Id
