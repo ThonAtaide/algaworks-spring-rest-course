@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cidades")
@@ -25,16 +26,15 @@ public class CidadeController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Cidade> listar() {
-        return cidadeRepository.listar();
+        return cidadeRepository.findAll();
     }
 
     @GetMapping("/{cidadeId}")
     public ResponseEntity<Cidade> listar(@PathVariable Long cidadeId) {
-        final Cidade cidade = cidadeRepository.buscar(cidadeId);
-        if (cidade == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cidade);
+        final Optional<Cidade> cidade = cidadeRepository.findById(cidadeId);
+        return cidade
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -52,15 +52,15 @@ public class CidadeController {
             @RequestBody Cidade cidade,
             @PathVariable Long cidadeId
     ) {
-        Cidade cidadeExistente = cidadeRepository.buscar(cidadeId);
-        if (cidadeExistente == null) {
+        Optional<Cidade> cidadeExistente = cidadeRepository.findById(cidadeId);
+        if (cidadeExistente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         try {
-            BeanUtils.copyProperties(cidade, cidadeExistente, "id");
-            cidadeExistente = cadastroCidadeService.salvar(cidadeExistente);
-            return ResponseEntity.ok(cidadeExistente);
+            BeanUtils.copyProperties(cidade, cidadeExistente.get(), "id");
+            final Cidade cidadeAtualizada = cadastroCidadeService.salvar(cidadeExistente.get());
+            return ResponseEntity.ok(cidadeAtualizada);
         } catch (EntidadeNaoEncontradaException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
@@ -70,8 +70,8 @@ public class CidadeController {
     public ResponseEntity<?> removerCidade(
             @PathVariable Long cidadeId
     ) {
-        Cidade cidadeExistente = cidadeRepository.buscar(cidadeId);
-        if (cidadeExistente == null) {
+        Optional<Cidade> cidadeExistente = cidadeRepository.findById(cidadeId);
+        if (cidadeExistente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         cadastroCidadeService.excluirCidade(cidadeId);

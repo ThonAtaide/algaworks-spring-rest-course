@@ -8,6 +8,8 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CadastroRestauranteService {
 
@@ -19,14 +21,14 @@ public class CadastroRestauranteService {
 
     public Restaurante salvar(Restaurante restaurante) {
         final Long cozinhaId = restaurante.getCozinha().getId();
-        final Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-        if (cozinha == null) {
+        final Optional<Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
+        if (cozinha.isEmpty()) {
             throw new EntidadeNaoEncontradaException(
                     String.format("Não existe cadastro de cozinha com o código %d", cozinhaId)
             );
         }
-        restaurante.setCozinha(cozinha);
-        return restauranteRepository.salvar(restaurante);
+        restaurante.setCozinha(cozinha.get());
+        return restauranteRepository.save(restaurante);
     }
 
 

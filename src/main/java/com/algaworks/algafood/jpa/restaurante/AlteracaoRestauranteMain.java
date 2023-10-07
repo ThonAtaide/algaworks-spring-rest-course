@@ -22,7 +22,7 @@ public class AlteracaoRestauranteMain {
 		restaurante.setId(1L);
 		restaurante.setNome("Pé de fava");
 
-		restauranteRepository.salvar(restaurante);
+		restauranteRepository.save(restaurante);
 		
 	}
 	

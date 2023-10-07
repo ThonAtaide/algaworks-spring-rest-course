@@ -28,8 +28,8 @@ public class InclusaoRestauranteMain {
 		oneReal.setNome("1 Real");
 		oneReal.setTaxaFrete(BigDecimal.valueOf(10.50));
 		
-		restaurante = restauranteRepository.salvar(restaurante);
-		oneReal = restauranteRepository.salvar(oneReal);
+		restaurante = restauranteRepository.save(restaurante);
+		oneReal = restauranteRepository.save(oneReal);
 		
 		System.out.printf("%d - %s\n", restaurante.getId(), restaurante.getNome());
 		System.out.printf("%d - %s\n", oneReal.getId(), oneReal.getNome());
