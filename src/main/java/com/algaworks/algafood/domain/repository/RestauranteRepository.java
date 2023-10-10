@@ -7,10 +7,12 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface RestauranteRepository extends JpaRepository<Restaurante, Long> {
+public interface RestauranteRepository extends JpaRepository<Restaurante, Long>, RestauranteRepositoryQueries {
 
     List<Restaurante> findRestauranteByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
 //    @Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
     List<Restaurante> buscaPorNomeECozinha(String nome, @Param("id") Long cozinha);
+
+    List<Restaurante> find(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 }
