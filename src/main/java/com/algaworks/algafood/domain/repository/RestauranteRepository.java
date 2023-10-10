@@ -20,4 +20,6 @@ public interface RestauranteRepository extends
     List<Restaurante> buscaPorNomeECozinha(String nome, @Param("id") Long cozinha);
 
     List<Restaurante> find(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
+
+
 }
