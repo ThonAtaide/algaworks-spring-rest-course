@@ -69,7 +69,8 @@ public class RestauranteController {
                     "id",
                     "formasPagamento",
                     "endereco",
-                    "dataCadastro"
+                    "dataCadastro",
+                    "produtos"
             );
             final Restaurante restauranteAtualizado = cadastroRestauranteService.salvar(restauranteExistente.get());
             return ResponseEntity.ok(restauranteAtualizado);
