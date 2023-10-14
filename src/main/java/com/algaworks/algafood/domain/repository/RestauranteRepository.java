@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface RestauranteRepository extends
-        JpaRepository<Restaurante, Long>,
+        CustomJpaRepository<Restaurante, Long>,
         RestauranteRepositoryQueries,
         JpaSpecificationExecutor<Restaurante>
 {
